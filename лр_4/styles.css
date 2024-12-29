@@ -1,0 +1,60 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex; /*  для удобного размещения элементов */
+    flex-direction: column; /*  для расположения сверху вниз */
+    align-items: center; /* центрируем по горизонтале */
+    margin: 0%;  /*  */
+    background-color: #D3D3D3;
+   /* color: white;   */
+
+}
+
+/* Стили для шабки */
+header{
+    background-color: black;
+    color: white;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid red;
+}
+
+#messages{
+    width: 80%;
+    max-height: 200px;
+    overflow-y: auto; /*  Сообщение прокручивается, если длиннее, чем высота */
+    background-color: #808080;
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 20px; /* Отступ под списком сообщений */
+
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #000000; /* Зелёный цвет */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+/* Настройка кнопки при наведении */
+button:hover {
+    background-color: #5a0153; /* Темнее при наведении */
+}
+
+/* Настройка полей имя и сообщение */
+#nameInput,
+        #messageInput {
+            width: 60%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        #messages li {
+            margin-bottom: 5px; /* Отступ между сообщениями  */
+        }
