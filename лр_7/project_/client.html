@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Локальный чат</title>
+    <!-- Подключаем библиотеку Socket.IO для работы с веб-сокетами -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+     <!-- Подключаем стили -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Локальный чат</h1>
+    </header>
+
+    <!-- Список для отображения сообщений -->
+    <ul id="messages"></ul>
+    <form id="message-form">  <!-- Оборачиваем инпуты и кнопку в form -->
+        <input type="text" id="nameInput" placeholder="Имя"> <!-- Поле для ввода имени пользователя -->
+        <input type="text" id="messageInput" placeholder="Сообщение"> <!-- Поле для ввода сообщения -->
+        <button type="submit">Отправить  :></button> <!-- Кнопка для отправки сообщения -->
+    </form>
+    <script>
+        const socket = io('http://localhost:12345',{autoConnect: true}); // Создаем соединение с сервером 
+        // Получаем элементы DOM для работы с ними
+        const messagesList = document.getElementById('messages');
+        const nameInput = document.getElementById('nameInput');
+        const messageInput = document.getElementById('messageInput');
+        let userName = '';
+        const messageForm = document.getElementById('message-form');  // Получаем форму по id
+        
+        // Обработчик события подключения к серверу
+        socket.on('connect', () => {
+            console.log('Подключился к серверу');
+            userName = nameInput.value.trim();
+        });
+        // Обработчик события отключения от сервера
+         socket.on('disconnect', (reason) => {
+             console.log('Отключился от сервера ', reason);
+              //  Если отключение произошло по причине ошибки, то выводим сообшение
+                if (reason === "io server disconnect"){
+                  alert("Произошло отключение, попробуйте перезапустить страницу")
+                 }
+
+            });
+
+        // Передача данных 
+        socket.on('message', (data) => {
+            const messageItem = document.createElement('li');
+            messageItem.innerHTML = `<strong>${data.sender}:</strong> ${data.text}`;
+             if (data.sender === userName) {
+                messageItem.classList.add('sent');
+            } else {
+                messageItem.classList.add('received');
+            }
+            messagesList.appendChild(messageItem);
+            messagesList.scrollTop = messagesList.scrollHeight;
+        });
+
+
+       // Обработчик отправки формы
+      messageForm.addEventListener('submit', function(event) {
+        event.preventDefault();  // Предотвращаем перезагрузку страницы
+
+        const currentName = nameInput.value.trim();
+        const message = messageInput.value.trim();
+
+        //Проверка заполненны поля ИМЯ и СООБЩЕНИЕ 
+        if (!currentName || !message) {
+           alert("Вы не ввели имя или сообщение !");
+            return;
+        }
+        // Обновляем имя пользователя перед отправкой каждого сообщения
+        userName = currentName;
+        // Отправиляет сообщение на сервер для рассылки другим клиентам
+        socket.emit('message', { text: message, author: userName });
+        messageInput.value = '';
+      });
+    </script>
+</body>
+</html>
