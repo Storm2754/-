@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    /*background-color: #f7f4f4;*/
+    background-image: url("1.jpg"); /* Добавляем фоновое изображение */
+    background-size: cover; /* Заставляем изображение занимать всю область */
+    background-repeat: no-repeat; /* Предотвращаем повторение изображения */
+    background-position: center; /* Центрируем изображение */
+}
+
+/* Стили для шапки */
+header {
+    /*background-color: rgb(107, 107, 107);*/
+    color: rgb(0, 0, 0);
+    width: 100%;
+    text-align: center;
+    /*border-bottom: 1px solid red;*/
+}
+
+header h1 {
+    text-shadow: 6px 6px 8px rgb(36, 152, 58); /* добавляем обводку */
+}
+
+/* Стили для контейнера сообщений */
+#messages {
+    width: 40%;
+    height: 300px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #808080;
+    color: rgb(0, 0, 0);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+    display: flex; /* используем flex для управления расположением */
+    flex-direction: column; /* сообщения выстраиваются в столбик */
+    border: 1px solid rgb(152, 44, 44);
+    background-image: url("2.jpg"); /* Добавляем фоновое изображение */
+    background-size: cover; /* Заставляем изображение занимать всю область */
+    background-repeat: no-repeat; /* Предотвращаем повторение изображения */
+    background-position: center; /* Центрируем изображение */
+
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Настройка кнопки при наведении */
+button:hover {
+    background-color: #5a0153;
+}
+
+/* Настройка полей имя и сообщение */
+#nameInput,
+#messageInput {
+    width: 30%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+#messages li {
+    margin-bottom: 10px;
+    padding: 8px; /* внутренние отступы для сообщений */
+    border-radius: 8px; /* скругление углов сообщений */
+    max-width: 70%; /* максимальная ширина сообщения */
+    word-wrap: break-word; /* перенос длинных слов */
+    clear: both;
+    display: flex; /* выравнивание содержимого сообщений */
+    
+}
+
+/* Стиль для отправленных сообщений */
+#messages li.sent {
+    align-self: flex-end;  /* выравнивание по правому краю */
+    background-color: #e0f7fa;
+     margin-left: auto; /*  убираем отступ с левой стороны*/
+}
+
+/* Стиль для полученных сообщений */
+#messages li.received {
+    align-self: flex-start;  /* выравнивание по левому краю */
+    background-color: #f0f0f0;
+    margin-right: auto;  /*  убираем отступ с правой стороны*/
+}
